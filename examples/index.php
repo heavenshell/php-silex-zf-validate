@@ -9,7 +9,7 @@ $app->register(new \Zf1\ValidateExtension(), array(
     'zend.class_path' => $zendpath,
 ));
 
-$app->get('/',  function () use ($app) {});
+$app->get('/', function () use ($app) {});
 
 $app->get('/success', function () use ($app) {
     $validator = $app['zend.validate']('alnum');

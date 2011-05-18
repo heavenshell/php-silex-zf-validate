@@ -8,10 +8,10 @@ $message  = __DIR__ . '/resouces/Messages.php';
 
 $app = new Silex\Application();
 $app->register(new \Zend\ValidateExtension(), array(
-    'locale'              => 'ja',
-    'zend.class_path'     => $zendpath,
-    'zend.resouce_path'   => $resouce,
-    'zend.extra.messages' => array($message)
+    'locale'               => 'ja',
+    'zend.class_path'      => $zendpath,
+    'zend.resouce_path'    => $resouce,
+    'zend.extra.resources' => array($message)
 ));
 
 $app->get('/', function () use ($app) {});

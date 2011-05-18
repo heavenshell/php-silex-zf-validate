@@ -92,15 +92,15 @@ class ValidateExtension implements ExtensionInterface
                 )
             );
             if (isset($app['zend.extra.messages'])) {
-                if (is_array($app['zend.extra.messages'])) {
-                    foreach ($app['zend.extra.messages'] as $v) {
+                if (is_array($app['zend.extra.resources'])) {
+                    foreach ($app['zend.extra.resources'] as $v) {
                         $translator->addTranslation(array(
                             'content' => $v,
                             'locale'  => $locale,
                         ));
                     }
                 } else {
-                    $translator->addTranslation($app['zend.extra.messages']);
+                    $translator->addTranslation($app['zend.extra.resources']);
                 }
             }
 
