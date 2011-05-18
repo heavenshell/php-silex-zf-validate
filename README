@@ -1,13 +1,31 @@
-PHP client library for Okuyama(Distributed key-value-store).
+Zend_Validate extension.
 
-System requirement
-  PHP 5.3
-  PHPUnit
+This extension for the Silex microframework enables use Zend Framework's Zend_Validate.
 
-Okuyama supports original protocol, memcached protocol.
-This client supports original protocol.
-  Net/Okuyama/Adapter/Socket.php
-memcached protocol is not support yet.
+<?php
+require_once 'silex.phar';
+require_once dirname(__DIR__) . '/src/Zf1/ValidateExtension.php';
 
-Okuyama has default PHP client library but it's implementaion is not a PHP way.
-So I implement new client library.
+$zendpath = getenv('ZF_PATH');
+
+$app = new Silex\Application();
+$app->register(new \Zf1\ValidateExtension(), array(
+    'zend.class_path' => $zendpath,
+));
+
+$app->get('/error', function () use ($app) {
+    $validator = $app['zend.validate']('alnum');
+    $result    = $validator->isvalid('abcd++');
+    if ($result === false) {
+        $mssages = $validator->getMessages();
+        var_dump($messages);
+    }
+
+    return $result;
+});
+
+Notice:
+Running tests or examples code
+1. Set Zend Framework1 library to your include_path export ZF_PATH='/path/to/zf1/path'
+2. export include_path
+  $ export ZF_PATH='/path/to/zf1/path'
