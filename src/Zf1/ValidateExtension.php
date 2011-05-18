@@ -65,6 +65,11 @@ use Silex\ExtensionInterface;
 class ValidateExtension implements ExtensionInterface
 {
     /**
+     * Version.
+     */
+    const VERSION = '0.0.1';
+
+    /**
      * Register extension.
      *
      * @param  Application $app Application
