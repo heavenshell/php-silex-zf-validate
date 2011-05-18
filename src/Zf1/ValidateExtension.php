@@ -91,7 +91,7 @@ class ValidateExtension implements ExtensionInterface
                     'scan' => \Zend_Translate::LOCALE_DIRECTORY
                 )
             );
-            if (isset($app['zend.extra.messages'])) {
+            if (isset($app['zend.extra.resources'])) {
                 if (is_array($app['zend.extra.resources'])) {
                     foreach ($app['zend.extra.resources'] as $v) {
                         $translator->addTranslation(array(
