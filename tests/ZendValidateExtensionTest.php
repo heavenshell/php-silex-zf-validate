@@ -67,7 +67,7 @@ class ZendValidateExtensionTest extends WebTestCase
         return $app;
     }
 
-    public function testAlnumShouldReturnFalse()
+    public function testAlnumShouldReturnErrorMessage()
     {
         $client  = $this->createClient();
         $crawler = $client->request('GET', '/alnum');
@@ -75,7 +75,7 @@ class ZendValidateExtensionTest extends WebTestCase
         $this->assertSame($content, "'abcd12+-' contains characters which are non alphabetic and no digits");
     }
 
-    public function testAlphaShouldReturnFalse()
+    public function testAlphaShouldReturnErrorMessage()
     {
         $client  = $this->createClient();
         $crawler = $client->request('GET', '/alpha');
@@ -83,7 +83,7 @@ class ZendValidateExtensionTest extends WebTestCase
         $this->assertSame($content, "'abcd12' contains non alphabetic characters");
     }
 
-    public function testBarcodeShouldReturnFalse()
+    public function testBarcodeShouldReturnErrorMessage()
     {
         $client  = $this->createClient();
         $crawler = $client->request('GET', '/barcode');
@@ -91,7 +91,7 @@ class ZendValidateExtensionTest extends WebTestCase
         $this->assertSame($content, "'12345' should have a length of 13 characters");
     }
 
-    public function testBetweenShouldReturnFalse()
+    public function testBetweenShouldReturnErrorMessage()
     {
         $client  = $this->createClient();
         $crawler = $client->request('GET', '/between');
