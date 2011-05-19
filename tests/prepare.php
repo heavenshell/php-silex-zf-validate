@@ -47,5 +47,6 @@ $src = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src';
 set_include_path(get_include_path()
     . PATH_SEPARATOR . $src
 );
+putenv('SILEX_TEST=true');
 require_once 'silex.phar';
 require_once 'PHPUnit/Framework/TestCase.php';

@@ -46,8 +46,7 @@
 
 require_once 'prepare.php';
 
-//use Silex\WebTestCase;
-use Symfony\Component\HttpFoundation\Request;
+use Silex\WebTestCase;
 
 /**
  * Zend_Validate Test.
@@ -60,20 +59,18 @@ use Symfony\Component\HttpFoundation\Request;
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
-class ZendValidateExtensionTest extends \PHPUnit_Framework_TestCase
+class ZendValidateExtensionTest extends WebTestCase
 {
-    private static $_app;
-    public static function setUpBeforeClass()
+    public function createApplication()
     {
-        require dirname(__DIR__) . '/examples/index.php';
-        self::$_app = $app;
+        return require dirname(__DIR__) . '/examples/index.php';
     }
 
-    private function _client($uri)
+    private function _client($uri, $method = 'GET')
     {
-        $request  = Request::create($uri);
-        $response = self::$_app->handle($request);
-        return $response->getContent();
+        $client = $this->createClient();
+        $client->request($method, $uri);
+        return $client->getResponse()->getContent();
     }
 
     public function testAlnumShouldReturnErrorMessage()

@@ -63,4 +63,7 @@ $app->get('/callback', function () use ($app) {
     return $messages[key($messages)];
 });
 
+if (getenv('SILEX_TEST')) {
+    return $app;
+}
 $app->run();
