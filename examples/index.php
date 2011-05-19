@@ -23,15 +23,16 @@ $app->get('/alnum', function () use ($app) {
     $result    = $validator->isValid('abcd12+-');
     $messages  = $validator->getMessages();
 
-    return $messages['notAlnum'];
+    return $messages[key($messages)];
 });
 
 $app->get('/alpha', function () use ($app) {
     $validator = $app['zend.validate']('alpha');
     $result    = $validator->isValid('abcd12');
     $messages  = $validator->getMessages();
+    $key       = key($messages);
 
-    return $messages['notAlpha'];
+    return $messages[key($messages)];
 });
 
 $app->get('/barcode', function () use ($app) {
@@ -39,7 +40,7 @@ $app->get('/barcode', function () use ($app) {
     $result    = $validator->isValid('12345');
     $messages  = $validator->getMessages();
 
-    return $messages['barcodeInvalidLength'];
+    return $messages[key($messages)];
 });
 
 $app->get('/between', function () use ($app) {
@@ -49,7 +50,7 @@ $app->get('/between', function () use ($app) {
     $result    = $validator->isValid('123456');
     $messages  = $validator->getMessages();
 
-    return $messages['notBetween'];
+    return $messages[key($messages)];
 });
 
 $app->run();
