@@ -53,4 +53,14 @@ $app->get('/between', function () use ($app) {
     return $messages[key($messages)];
 });
 
+$app->get('/callback', function () use ($app) {
+    $validator = $app['zend.validate']('callback', function($value) {
+        return false;
+    });
+    $result    = $validator->isValid('value');
+    $messages  = $validator->getMessages();
+
+    return $messages[key($messages)];
+});
+
 $app->run();

@@ -63,7 +63,7 @@ class ZendValidateExtensionTest extends WebTestCase
 {
     public function createApplication()
     {
-        include dirname(__DIR__) . '/examples/index.php';
+        require dirname(__DIR__) . '/examples/index.php';
         return $app;
     }
 
@@ -97,5 +97,13 @@ class ZendValidateExtensionTest extends WebTestCase
         $crawler = $client->request('GET', '/between');
         $content = $client->getResponse()->getContent();
         $this->assertSame($content, "'123456' is not between '0' and '5', inclusively");
+    }
+
+    public function testCallShouldReturnErrorMessage()
+    {
+        $client  = $this->createClient();
+        $crawler = $client->request('GET', '/callback');
+        $content = $client->getResponse()->getContent();
+        $this->assertSame($content, "'value' is not valid");
     }
 }
