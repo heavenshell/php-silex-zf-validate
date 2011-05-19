@@ -46,7 +46,8 @@
 
 require_once 'prepare.php';
 
-use Silex\WebTestCase;
+//use Silex\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Zend_Validate Test.
@@ -59,51 +60,49 @@ use Silex\WebTestCase;
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
-class ZendValidateExtensionTest extends WebTestCase
+class ZendValidateExtensionTest extends \PHPUnit_Framework_TestCase
 {
-    public function createApplication()
+    private static $_app;
+    public static function setUpBeforeClass()
     {
         require dirname(__DIR__) . '/examples/index.php';
-        return $app;
+        self::$_app = $app;
+    }
+
+    private function _client($uri)
+    {
+        $request  = Request::create($uri);
+        $response = self::$_app->handle($request);
+        return $response->getContent();
     }
 
     public function testAlnumShouldReturnErrorMessage()
     {
-        $client  = $this->createClient();
-        $crawler = $client->request('GET', '/alnum');
-        $content = $client->getResponse()->getContent();
+        $content = $this->_client('/alnum');
         $this->assertSame($content, "'abcd12+-' contains characters which are non alphabetic and no digits");
     }
 
     public function testAlphaShouldReturnErrorMessage()
     {
-        $client  = $this->createClient();
-        $crawler = $client->request('GET', '/alpha');
-        $content = $client->getResponse()->getContent();
+        $content = $this->_client('/alpha');
         $this->assertSame($content, "'abcd12' contains non alphabetic characters");
     }
 
     public function testBarcodeShouldReturnErrorMessage()
     {
-        $client  = $this->createClient();
-        $crawler = $client->request('GET', '/barcode');
-        $content = $client->getResponse()->getContent();
+        $content = $this->_client('/barcode');
         $this->assertSame($content, "'12345' should have a length of 13 characters");
     }
 
     public function testBetweenShouldReturnErrorMessage()
     {
-        $client  = $this->createClient();
-        $crawler = $client->request('GET', '/between');
-        $content = $client->getResponse()->getContent();
+        $content = $this->_client('/between');
         $this->assertSame($content, "'123456' is not between '0' and '5', inclusively");
     }
 
     public function testCallShouldReturnErrorMessage()
     {
-        $client  = $this->createClient();
-        $crawler = $client->request('GET', '/callback');
-        $content = $client->getResponse()->getContent();
+        $content = $this->_client('/callback');
         $this->assertSame($content, "'value' is not valid");
     }
 }
